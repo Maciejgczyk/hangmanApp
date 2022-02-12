@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.container {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin: 50px 0;
+
+    width: 100%;
+  }
+
+  &__header--button {
+    padding: 12px 24px;
+
+    background-color: rgb(255, 166, 0);
+    color: rgb(255, 255, 255);
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:disabled {
+      background-color: rgba(255, 166, 0, 0.534);
+      cursor: auto;
+    }
+  }
+
+  &__dash {
+    font-size: 40px;
+
+    display: block;
+    margin: 32px 0;
+  }
+
+  &__counter {
+    font-size: 40px;
+    display: block;
+    margin: 24px;
+  }
+}

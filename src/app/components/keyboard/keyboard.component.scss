@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-letter {
+  width: 48px;
+  height: 48px;
+
+  margin: 4px;
+
+  background-color: rgb(255, 166, 0);
+  color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.411);
+  }
+
+  &:disabled {
+    background-color: rgba(255, 166, 0, 0.534);
+    cursor: auto;
+  }
+}

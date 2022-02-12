@@ -1,0 +1,3 @@
+<ng-container *ngFor="let letter of allLetters">
+  <button class="btn-letter" [disabled]="usedLetters.includes(letter)" (click)="sendLetter(letter)">{{ letter }}</button>
+</ng-container>
