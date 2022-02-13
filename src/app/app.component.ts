@@ -14,17 +14,26 @@ export class AppComponent implements OnInit {
   randomWord: string = null;
   count: number = 0;
   timeSpent: number = 0;
+  mistakesMade: number = 0;
+  isLost: boolean = false;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataService.getAnswers().subscribe(el => this.allWords = el);
+    setInterval(() => {
+      this.timeSpent += 1;
+    }, 1000)
   }
 
   startGame(isNewGame?: boolean): void {
     if (isNewGame) {
-      this.timer();
+      this.timeSpent = 0;
+      this.mistakesMade = 0;
+      this.count = 0;
+      this.clearData();
     }
+
     this.dataService.sendAction();
 
     this.randomWord = this.allWords[Math.floor(Math.random() * this.allWords.length)];
@@ -38,10 +47,10 @@ export class AppComponent implements OnInit {
   nextGame(): void {
     this.clearData();
     this.count += 1;
+    this.mistakesMade = 0;
 
     if (this.count === 5) {
       alert(`Congratulations, you won! 5/5, You spent: ${this.timeSpent} seconds`);
-      clearInterval()
       this.clearData();
       this.count = 0;
     } else {
@@ -55,19 +64,18 @@ export class AppComponent implements OnInit {
         this.answerArray[j] = value;
       }
     }
+    if (!this.randomWord?.includes(value)) {
+      if (this.mistakesMade == 5) {
+        alert("Game over :)");
+        this.isLost = true;
+      }
+      this.mistakesMade += 1;
+    }
   }
 
   clearData(): void {
     this.answerArray = [];
     this.randomWord = null;
-  }
-
-  timer(): void {
-    const test = setInterval(() => {
-      this.timeSpent += 1;
-    }, 1000)
-    if (this.count == 5) {
-      clearInterval(test);
-    }
+    this.isLost = false;
   }
 }

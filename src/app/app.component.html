@@ -1,10 +1,10 @@
 <section class="container">
   <div class="container__header">
-    <button class="container__header--button" [disabled]="randomWord" (click)="startGame(true)">
+    <button class="container__header--button" [disabled]="randomWord && !isLost" (click)="startGame(true)">
       Start Game
     </button>
 
-    <button class="container__header--button" [disabled]="(answerArray.join('') !== randomWord)" (click)="nextGame()">
+    <button class="container__header--button" [disabled]="(answerArray.join('') !== randomWord) || isLost" (click)="nextGame()">
       Next Game
     </button>
   </div>
@@ -13,10 +13,15 @@
     {{ answerArray.join(' ') }}
   </span>
   <app-keyboard (letter)="getLetter($event)"></app-keyboard>
-  <span *ngIf="randomWord" class="container__counter">
-    {{ count + 1 }}/5
-  </span>
-  <span *ngIf="randomWord" class="container__counter">
-    {{ timeSpent }} seconds
-  </span>
+  <ng-container *ngIf="randomWord && !isLost">
+    <span class="container__counter">
+      {{ count + 1 }}/5
+    </span>
+    <span class="container__counter">
+      {{ timeSpent }} seconds
+    </span>
+    <span class="container__counter">
+      {{ 6 - mistakesMade }} tries left
+    </span>
+  </ng-container>
 </section>
